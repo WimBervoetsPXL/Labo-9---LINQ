@@ -1,4 +1,6 @@
 ﻿using StudentScores.Entities;
+using StudentScores.Models;
+using System.Windows.Navigation;
 
 namespace StudentScores.Data
 {
@@ -63,9 +65,146 @@ namespace StudentScores.Data
                 };
         }
 
+        //1
+        public Student[] AllStudents() => _students.ToArray();
+
+        //2
         public IEnumerable<Student> PassedStudents()
         {
             return _students.Where(s => s.Grade > 10);
+        }
+
+        //3
+        public List<Student> SortedByFirstName()
+        {
+            return _students.OrderBy(s => s.FirstName).ToList();
+        }
+
+        //3.1
+        public List<Student> SortedByFirstNameThenByLastname()
+        {
+            return _students.OrderBy(s => s.FirstName).ThenBy(s => s.LastName).ToList();
+        }
+
+        //4
+        public IEnumerable<DepartmentCount> NumberOfStudentsByDepartment()
+        {
+            return _students
+                .GroupBy(s => s.Department)
+                .Select(g => new DepartmentCount { Department = g.Key, Count = g.Count() });
+        }
+
+        //5
+        public GradeSummary Summary {
+            get {
+                //Helaas niet mogelijk in 1 linq statement (niet ondersteund)
+                var summary = new GradeSummary
+                {
+                    NumberOfStudents = _students.Count(),
+                    AverageScore = _students.Average(s => s.Grade),
+                    MinimumScore = _students.Min(s => s.Grade),
+                    MaximumScore = _students.Max(s => s.Grade),
+                };
+                return summary;
+            }
+        }
+
+        //6
+        public int NumberOfDepartments()
+        {
+            return _students.Select(s => s.Department).Distinct().Count();
+        }
+
+        //Extra 1
+        public IEnumerable<Student> StudentsWithHonor()
+        {
+            return _students.Where(s => s.Grade >= 14)
+                .OrderByDescending(s => s.Grade)
+                .ThenBy(s => s.LastName)
+                .ThenBy(s => s.FirstName);
+
+        }
+
+        //Extra 2
+        public IEnumerable<Student> StudentsByDepartment(string department)
+        {
+            return _students.Where(s => s.Department.Equals(department, StringComparison.OrdinalIgnoreCase));
+        }
+
+        //Extra 3
+        public IEnumerable<Student> BestStudentPerDepartment()
+        {
+            var result = _students
+                .GroupBy(s => s.Department)
+                .Select(g => g
+                    .OrderByDescending(s => s.Grade)
+                    .First())
+                .OrderBy(s => s.Department);
+            return result;
+
+            //OF
+            var result2 = _students
+                .GroupBy(s => s.Department)
+                .Select(g => new
+                {
+                    Department = g.Key,
+                    TopStudent = g.OrderByDescending(s => s.Grade).First()
+                })
+                .Select(a => new Student
+                {
+                    Department = a.Department,
+                    FirstName = a.TopStudent.FirstName,
+                    LastName = a.TopStudent.LastName,
+                    Grade = a.TopStudent.Grade,
+                })
+                .OrderBy(s => s.Department).ToList();
+
+            //OF
+            //nieuwe class aanmaken voor resultaat
+        }
+
+        //Extra 4
+        public List<Student> Top3()
+        {
+            return _students.OrderByDescending(s => s.Grade).Take(3).ToList();
+        }
+
+        //Extra 5
+        public List<Student> Top3PerDepartment(List<Student> students)
+        {
+            return students
+                .GroupBy(s => s.Department)
+                .SelectMany(g => g
+                    .OrderByDescending(s => s.Grade)
+                    .Take(3)
+                    .Select(s => s)
+                )
+                .ToList();
+        }
+
+        //Extra 6
+        public List<DepartmentStats> GetDepartmentStatistics(List<Student> students)
+        {
+            return students
+                .GroupBy(s => s.Department)
+                .Select(g => new DepartmentStats
+                {
+                    Department = g.Key,
+                    StudentCount = g.Count(),
+                    AverageScore = g.Average(s => s.Grade),
+                    MinScore = g.Min(s => s.Grade),
+                    MaxScore = g.Max(s => s.Grade)
+                })
+                .OrderBy(ds => ds.AverageScore)
+                .ToList();
+        }
+
+        //Extra 7
+        public List<Student> StudentsByName(string name)
+        {
+            return _students
+                .Where(s => s.FirstName.Equals(name) || s.LastName.Equals(name))
+                .ToList();
         }
     }
 }

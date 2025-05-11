@@ -46,11 +46,11 @@ In dit labo staat LINQ centraal. Door middel van LINQ kunnen een query uitvoeren
 > [!TIP]
 > Werk verder op dezelfde manier en maak voor elke vereiste een aparte property of functie in de StudentStore
 
-- Toon de studenten met een onderscheiding (score groter of gelijk aan 14) gesorteerd op score, achternaam en voornaam
-- Vraag door middel van een InputBox de gebruiker om een departement in te geven, toon de studenten van het gevraagde departement
-- Toon de student met de hoogste score per departement, sorteer op departement
-- Toon de top 3 van alle studenten
-- Toon de top 3 studenten per departement, gesorteerd op score
-- Toon het aantal studenten, de gemiddelde-, minimum- en maximumscore per departement. Sorteer de departementen op de gemiddelde score van laag naar hoog
-- Vraag door middel van een InputBox de gebruiker om een naam in te geven, toon de studenten waarbij de ingegeven naam overeenkomt met de voor- en/of achternaam van de student
+1. Toon de studenten met een onderscheiding (score groter of gelijk aan 14) gesorteerd op score, achternaam en voornaam
+2. Vraag door middel van een InputBox de gebruiker om een departement in te geven, toon de studenten van het gevraagde departement
+3. Toon de student met de hoogste score per departement, sorteer op departement
+4. Toon de top 3 van alle studenten
+5. Toon de top 3 studenten per departement, gesorteerd op score
+6. Toon het aantal studenten, de gemiddelde-, minimum- en maximumscore per departement. Sorteer de departementen op de gemiddelde score van laag naar hoog
+7. Vraag door middel van een InputBox de gebruiker om een naam in te geven, toon de studenten waarbij de ingegeven naam overeenkomt met de voor- en/of achternaam van de student
 
