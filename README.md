@@ -8,7 +8,7 @@ In dit labo staat LINQ centraal. Door middel van LINQ kunnen een query uitvoeren
 ## 1. Alle studenten
 
 - Maak een **property** in de StudentStore ```AllStudents``` die een **Array** retourneert van alle studenten.
-- Gebruik de code ```resultListBox.ItemsSource = _store.AllStudents();``` om het resultaat te tonen.
+- Gebruik de code ```resultListBox.ItemsSource = _store.AllStudents;``` om het resultaat te tonen.
 
 ## 2. Geslaagd
 
